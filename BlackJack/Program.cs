@@ -7,6 +7,7 @@ namespace BlackJack
      * Aaron Salazar's Black Jack game
      * 
      * It still needs a lot of work but the basic game play is there.
+     * This is about 4 hours of work.
      */
 
     class MainClass
