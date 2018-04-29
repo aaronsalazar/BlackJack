@@ -7,6 +7,9 @@ namespace BlackJack
     {
         public static void Main(string[] args)
         {
+            // Game setup
+            // A game has a dealer, players and a shuffled deck
+            // The dealer and all players have a hand
             var dealer = new Dealer()
             {
                 name = "Dealer",
@@ -15,53 +18,130 @@ namespace BlackJack
 
             var players = new List<Player>()
             {
-                new Player(){ name = "Aaron", hands = new List<Hand>()
+                new Player(){ name = "Player", hands = new List<Hand>()
                     { new Hand() }
                 }
             };
 
             var game = new Game(players, dealer, 1);
 
+            // Deal from top of deck to all players
             game.Deal();
 
-            showDealer(dealer);
-            showState(players);
+            // Show the cards and current scores
+            ShowCurrentGameState(game, false);
+
+            // Wait for user input
+            ConsoleKeyInfo userKey;
+            do
+            {
+                userKey = Console.ReadKey(true);
+
+                // Hit
+                if(userKey.Key == ConsoleKey.H)
+                {
+                    game.Hit(players[0].hands[0]);
+                    ShowCurrentGameState(game, false);
+                }
+                // Stand
+                else if(userKey.Key == ConsoleKey.S)
+                {
+                    game.Stand(dealer.hands[0]);
+                    RevealDealerCards(dealer);
+                    ShowCurrentGameState(game, true);
+                    Environment.Exit(0);
+                }
+            } while (userKey.Key != ConsoleKey.Escape);
         }
 
-        public static void showDealer(Dealer dealer)
+        public static void ShowCurrentGameState(Game game, bool reveal)
         {
-            Console.WriteLine("Dealer");
+            ShowDealer(game.dealer, reveal);
+            ShowPlayers(game.players);
+            ShowOptions();
+            IsWinner(game);
+
+        }
+
+        public static void RevealDealerCards(Dealer dealer)
+        {
+            foreach (var card in dealer.hands[0].cards)
+            {
+                card.isHidden = false;
+            }
+        }
+
+        public static void ShowDealer(Dealer dealer, bool reveal)
+        {
+            Console.Write("Dealer: ");
             foreach (var hand in dealer.hands)
             {
                 foreach (var card in hand.cards)
                 {
                     if(card.isHidden)
                     {
-                        Console.WriteLine("Card: hidden");
+                        Console.Write("* ");
                     }
                     else
                     {
-                        Console.WriteLine("Card: " + card.name);   
+                        Console.Write(card.name + " ");   
                     }
+                }
+                if (reveal)
+                {
+                    Console.Write("(" + dealer.hands[0].score + ")");
                 }
             }
         }
 
-        public static void showState(List<Player> players)
+        public static void ShowPlayers(List<Player> players)
         {
             foreach (var player in players)
             {
-                Console.WriteLine("player: " + player.name);
+                Console.Write("\n" + player.name + ": ");
                 foreach (var hand in player.hands)
                 {
-                    Console.WriteLine("Score: " + hand.score);
                     foreach (var card in hand.cards)
                     {
-                        Console.WriteLine("Card: " + card.name);
+                        Console.Write(card.name + " ");
                     }
+                    Console.Write("(" + hand.score + ")");
                 }
             }
         }
 
+        public static void ShowOptions()
+        {
+            Console.WriteLine("\n\n-- [h]: hit, [s]: stand --");
+        }
+
+        public static void IsWinner(Game game)
+        {
+            var playerWins = game.DeterminePlayerWinner(game.players[0].hands[0]);
+            var dealerWins = game.DeterminePlayerWinner(game.dealer.hands[0]);
+
+            if (playerWins != null)
+            {
+                if (playerWins.Value)
+                {
+                    Console.WriteLine("\nYou win!");
+                }
+                else
+                {
+                    Console.WriteLine("\nYou lose.");
+                }
+            }
+            if(dealerWins != null)
+            {
+                if (dealerWins.Value)
+                {
+                    Console.WriteLine("\nYou lose.");
+                }
+                else
+                {
+                    Console.WriteLine("\nYou win!");
+                }
+            }
+        }
     }
 }

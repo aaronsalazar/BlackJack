@@ -47,11 +47,37 @@ namespace BlackJack
             hand.cards.Add(GetNextCard());
         }
 
+        public void Stand(Hand dealerHand)
+        {
+            // When player stands the dealer must hit until his score is less than or equal to 17
+            while(dealerHand.score < 17)
+            {
+                Hit(dealerHand);    
+            }
+        }
+
         public Card GetNextCard()
         {
             nextCard = deck.cards[index];
             index++;
             return nextCard;
+        }
+
+        public bool? DeterminePlayerWinner(Hand hand)
+        {
+            var cardCnt = hand.cards.Count;
+
+            // Start out with 21 - Win
+            if (cardCnt == 2 && hand.score == 21)
+                return true;
+            // If I ever hit 21 - Win
+            if (cardCnt > 2 && hand.score == 21)
+                return true;
+            // If I ever exceed 21 - Lose
+            if (cardCnt > 2 && hand.score > 21)
+                return false;
+
+            return null;
         }
     }
 }
