@@ -1,0 +1,5 @@
+/Users/Aaron/Projects/Poker/Poker/bin/Debug/Poker.exe
+/Users/Aaron/Projects/Poker/Poker/bin/Debug/Poker.pdb
+/Users/Aaron/Projects/Poker/Poker/obj/x86/Debug/Poker.csproj.CoreCompileInputs.cache
+/Users/Aaron/Projects/Poker/Poker/obj/x86/Debug/Poker.exe
+/Users/Aaron/Projects/Poker/Poker/obj/x86/Debug/Poker.pdb
