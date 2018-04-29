@@ -19,6 +19,8 @@ namespace BlackJack
         private int index { get; set; }
         private Card nextCard { get; set; }
 
+        // According to rules dealer deals one card to each player and then
+        // themself and then a second card to each player and then themself.
         public void Deal()
         {
             foreach (var player in players)
@@ -56,6 +58,7 @@ namespace BlackJack
             }
         }
 
+        // Just like in real life, take the next card off the top.
         public Card GetNextCard()
         {
             nextCard = deck.cards[index];
@@ -63,6 +66,7 @@ namespace BlackJack
             return nextCard;
         }
 
+        // Not conclusive.  Next iteration I'll get more accurate.
         public bool? DeterminePlayerWinner(Hand hand)
         {
             var cardCnt = hand.cards.Count;

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace BlackJack
 {
+    /*
+     * Aaron Salazar's Black Jack game
+     * 
+     * It still needs a lot of work but the basic game play is there.
+     */
+
     class MainClass
     {
         public static void Main(string[] args)
@@ -54,6 +60,7 @@ namespace BlackJack
             } while (userKey.Key != ConsoleKey.Escape);
         }
 
+        // Prints out the current hands, score and key commands
         public static void ShowCurrentGameState(Game game, bool reveal)
         {
             ShowDealer(game.dealer, reveal);
@@ -115,6 +122,7 @@ namespace BlackJack
             Console.WriteLine("\n\n-- [h]: hit, [s]: stand --");
         }
 
+        // Determines what to print when a winner is considered.
         public static void IsWinner(Game game)
         {
             var playerWins = game.DeterminePlayerWinner(game.players[0].hands[0]);
