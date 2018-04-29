@@ -3,3 +3,8 @@
 /Users/Aaron/Projects/BlackJack/BlackJack/obj/x86/Debug/BlackJack.csproj.CoreCompileInputs.cache
 /Users/Aaron/Projects/BlackJack/BlackJack/obj/x86/Debug/BlackJack.exe
 /Users/Aaron/Projects/BlackJack/BlackJack/obj/x86/Debug/BlackJack.pdb
+/Users/Aaron/Projects/BlackJack/BlackJack/BlackJack/bin/Debug/BlackJack.exe
+/Users/Aaron/Projects/BlackJack/BlackJack/BlackJack/bin/Debug/BlackJack.pdb
+/Users/Aaron/Projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/BlackJack.csproj.CoreCompileInputs.cache
+/Users/Aaron/Projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/BlackJack.exe
+/Users/Aaron/Projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/BlackJack.pdb

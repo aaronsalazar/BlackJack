@@ -5,39 +5,49 @@ namespace BlackJack
 {
     public class Game
     {
-        public Game(List<Player> _players, int? numberOfDecks)
+        public Game(List<Player> _players, Dealer _dealer, int? numberOfDecks)
         {
             index = 0;
             players = _players;
+            dealer = _dealer;
             deck = new Deck(numberOfDecks ?? 1);
         }
 
         public List<Player> players { get; set; }
+        public Dealer dealer { get; set; }
         public Deck deck { get; set; }
         private int index { get; set; }
         private Card nextCard { get; set; }
 
-        public void deal()
+        public void Deal()
         {
             foreach (var player in players)
             {
-                foreach (var hand in player.hands)
+                var cardsDealt = 0;
+                while (cardsDealt < 2)
                 {
-                    hand.cards = new List<Card>();
-                    hand.cards.Add(getNextCard());
-                    var showingCard = getNextCard();
-                    showingCard.isHidden = false;
-                    hand.cards.Add(showingCard);
+                    foreach (var hand in player.hands)
+                    {
+                        hand.cards.Add(GetNextCard());
+                    }
+                    foreach (var hand in dealer.hands)
+                    {
+                        var next = GetNextCard();
+                        if (cardsDealt == 1)
+                            next.isHidden = false;
+                        hand.cards.Add(nextCard);
+                    }
+                    cardsDealt++;
                 }
             }
         }
 
-        public void hit(Hand hand)
+        public void Hit(Hand hand)
         {
-            hand.cards.Add(getNextCard());
+            hand.cards.Add(GetNextCard());
         }
 
-        public Card getNextCard()
+        public Card GetNextCard()
         {
             nextCard = deck.cards[index];
             index++;

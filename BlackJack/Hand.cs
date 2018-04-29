@@ -8,13 +8,13 @@ namespace BlackJack
     {
         public Hand()
         {
-
+            cards = new List<Card>();
         }
 
         public List<Card> cards { get; set; }
-        public int score => cardSum();
+        public int score => CardSum();
 
-        private int cardSum()
+        private int CardSum()
         {
             var total = cards.Sum(x => x.value);
 

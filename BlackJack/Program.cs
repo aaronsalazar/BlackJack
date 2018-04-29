@@ -7,22 +7,44 @@ namespace BlackJack
     {
         public static void Main(string[] args)
         {
-            var players = new List<Player>();
-            var aaron = new Player();
-            aaron.name = "Aaron";
-            var h = new Hand();
-            aaron.hands.Add(h);
-            players.Add(aaron);
-            var game = new Game(players, 1);
+            var dealer = new Dealer()
+            {
+                name = "Dealer",
+                hands = new List<Hand>() { new Hand() }
+            };
 
-            game.deal();
+            var players = new List<Player>()
+            {
+                new Player(){ name = "Aaron", hands = new List<Hand>()
+                    { new Hand() }
+                }
+            };
 
-            //showState(players);
+            var game = new Game(players, dealer, 1);
 
-            //game.hit(players[0].hands[0]);
-            //game.hit(players[0].hands[0]);
+            game.Deal();
 
+            showDealer(dealer);
             showState(players);
+        }
+
+        public static void showDealer(Dealer dealer)
+        {
+            Console.WriteLine("Dealer");
+            foreach (var hand in dealer.hands)
+            {
+                foreach (var card in hand.cards)
+                {
+                    if(card.isHidden)
+                    {
+                        Console.WriteLine("Card: hidden");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Card: " + card.name);   
+                    }
+                }
+            }
         }
 
         public static void showState(List<Player> players)
@@ -35,7 +57,7 @@ namespace BlackJack
                     Console.WriteLine("Score: " + hand.score);
                     foreach (var card in hand.cards)
                     {
-                        Console.WriteLine("Card name: " + card.name);
+                        Console.WriteLine("Card: " + card.name);
                     }
                 }
             }
